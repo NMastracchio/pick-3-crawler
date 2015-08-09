@@ -70,8 +70,7 @@ def getPatterns():
   patterns = []
   while True:
     try:
-      numPatterns = int(raw_input("""
-    Number of patterns: """))
+      numPatterns = int(raw_input("\tNumber of patterns: "))
     except ValueError:
       print "Please enter a valid number."
       continue
@@ -86,8 +85,7 @@ def getPatterns():
     Example:
     + - _ + -"""
   for n in range(numPatterns):
-    pattern = raw_input("""
-    Pattern %s: """ % str(n + 1))
+    pattern = raw_input("\tPattern %s: " % str(n + 1))
     mappedPattern = map(str, pattern.split())
     mappedPattern = [char.replace('_', ' ') for char in mappedPattern]
     patterns.append(mappedPattern)
@@ -112,8 +110,8 @@ def getSubdirectories():
 def copyFile(dirNum):
   src = dataFilesLoc + "/" + str(dirNum) + "/Data3"
   dest = analysisLoc + "/Data3"
-  print ("Copying '" + dataFilesLoc + "/" + str(dirNum) + "/Data3' to '" 
-        + analysisLoc + "/Data3': "),
+  print ("Copying %s/%s/Data3 to %s/Data3: " % (dataFilesLoc, str(dirNum), 
+                                              analysisLoc)),
   try:
     shutil.copy(src, dest)
   except shutil.Error as e:
@@ -157,7 +155,7 @@ def extractPatterns(patterns):
   store = {}
   for filename in MDfilenames:
     store[filename] = {}
-    fp = open("C:/ANALYSIS/" + filename)
+    fp = open(analysisLoc + "/" + filename)
     for i, line in enumerate(fp):
       if (i == 13) or (i == 14) or (i == 15) or (i == 16) or (i == 17):
         for n in range(len(MDcolumns)):
@@ -168,7 +166,7 @@ def extractPatterns(patterns):
 
   for filename in Wfilenames:
     store[filename] = {}
-    fp = open("C:/ANALYSIS/" + filename)
+    fp = open(analysisLoc + "/" + filename)
     for i, line in enumerate(fp):
       if (i == 13) or (i == 14) or (i == 15) or (i == 16) or (i == 17):
         for n in range(len(Wcolumns)):
@@ -180,7 +178,7 @@ def extractPatterns(patterns):
   return store
 
 #
-# Check for return character, put each character in the appropriate place
+# Replaces return characters, puts each character in the appropriate place
 #
 def charAppender(store, n, filename, character):
   if character == "\r":
@@ -208,10 +206,10 @@ def findMatches(patterns, data, dirNum):
           print """
     Match found!
     File: %s/%s
-    Source file: %s/%r/Data3
+    Source file: %s/%s/Data3
     Pattern found: %r
     Column #: %r
-          """ % (analysisLoc, key, dataFilesLoc, dirNum, patterns[pattern], 
+          """ % (analysisLoc, key, dataFilesLoc, str(dirNum), patterns[pattern], 
                 (colFormat[n] + 1))
           if(not mode):
             raw_input("Press Enter to continue...")
