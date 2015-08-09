@@ -159,19 +159,7 @@ def extractPatterns(patterns):
     store[filename] = {}
     fp = open("C:/ANALYSIS/" + filename)
     for i, line in enumerate(fp):
-      if i == 13:
-        for n in range(len(MDcolumns)):
-          charAppender(store, n, filename, line[MDcolumns[n]])
-      elif i == 14:
-        for n in range(len(MDcolumns)):
-          charAppender(store, n, filename, line[MDcolumns[n]])
-      elif i == 15:
-        for n in range(len(MDcolumns)):
-          charAppender(store, n, filename, line[MDcolumns[n]])
-      elif i == 16:
-        for n in range(len(MDcolumns)):
-          charAppender(store, n, filename, line[MDcolumns[n]])
-      elif i == 17:
+      if (i == 13) or (i == 14) or (i == 15) or (i == 16) or (i == 17):
         for n in range(len(MDcolumns)):
           charAppender(store, n, filename, line[MDcolumns[n]])
       elif i > 17:
@@ -182,19 +170,7 @@ def extractPatterns(patterns):
     store[filename] = {}
     fp = open("C:/ANALYSIS/" + filename)
     for i, line in enumerate(fp):
-      if i == 13:
-        for n in range(len(Wcolumns)):
-          charAppender(store, n, filename, line[Wcolumns[n]])
-      elif i == 14:
-        for n in range(len(Wcolumns)):
-          charAppender(store, n, filename, line[Wcolumns[n]])
-      elif i == 15:
-        for n in range(len(Wcolumns)):
-          charAppender(store, n, filename, line[Wcolumns[n]])
-      elif i == 16:
-        for n in range(len(Wcolumns)):
-          charAppender(store, n, filename, line[Wcolumns[n]])
-      elif i == 17:
+      if (i == 13) or (i == 14) or (i == 15) or (i == 16) or (i == 17):
         for n in range(len(Wcolumns)):
           charAppender(store, n, filename, line[Wcolumns[n]])
       elif i > 17:
