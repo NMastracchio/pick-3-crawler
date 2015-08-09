@@ -2,7 +2,6 @@ from pywinauto.application import Application
 import shutil
 import time
 import os
-import pprint
   
 #### Global variables ####
 
@@ -194,7 +193,6 @@ def charAppender(store, n, filename, character):
 # Takes the entered patterns and compares them to the extracted patterns
 #
 def findMatches(patterns, data, dirNum):
-  pp = pprint.PrettyPrinter(indent=2)
   for pattern in range(len(patterns)): #for each pattern...
     for key, value in data.iteritems(): # for each key in data dict
       for n in range(len(data[key]["patterns"])):
