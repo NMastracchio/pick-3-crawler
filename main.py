@@ -1,4 +1,5 @@
 from pywinauto.application import Application
+from msvcrt import getch
 import shutil
 import time
 import os
@@ -60,6 +61,7 @@ def getMode():
       continue
     else:
       break
+  global mode
   mode = modeNum
 
 #
@@ -69,7 +71,7 @@ def getPatterns():
   patterns = []
   while True:
     try:
-      numPatterns = int(raw_input("\tNumber of patterns: "))
+      numPatterns = int(raw_input("    Number of patterns: "))
     except ValueError:
       print "Please enter a valid number."
       continue
@@ -84,7 +86,7 @@ def getPatterns():
     Example:
     + - _ + -"""
   for n in range(numPatterns):
-    pattern = raw_input("\tPattern %s: " % str(n + 1))
+    pattern = raw_input("\n    Pattern %s: " % str(n + 1))
     mappedPattern = map(str, pattern.split())
     mappedPattern = [char.replace('_', ' ') for char in mappedPattern]
     patterns.append(mappedPattern)
@@ -193,10 +195,18 @@ def charAppender(store, n, filename, character):
 # Takes the entered patterns and compares them to the extracted patterns
 #
 def findMatches(patterns, data, dirNum):
+  def findMatchInList(toFind, inThis):
+    for n in range(len(toFind)):
+      if toFind[n] != inThis[n]:
+        return False
+      else:
+        continue
+    return True
   for pattern in range(len(patterns)): #for each pattern...
     for key, value in data.iteritems(): # for each key in data dict
       for n in range(len(data[key]["patterns"])):
-        if patterns[pattern] == data[key]["patterns"][n]:
+        if findMatchInList(patterns[pattern], data[key]["patterns"][n]):
+        #if patterns[pattern] == data[key]["patterns"][n]:
           if key[:2] == "MD":
           	colFormat = MDcolumns
           else:
@@ -209,8 +219,11 @@ def findMatches(patterns, data, dirNum):
     Column #: %r
           """ % (analysisLoc, key, dataFilesLoc, str(dirNum), patterns[pattern], 
                 (colFormat[n] + 1))
-          if(not mode):
-            raw_input("Press Enter to continue...")
+          if mode == 2:
+            while True:
+              keyNum = ord(getch())
+              if keyNum == 224: #Page Down
+                break
 
 getMode()
 patterns = getPatterns()
