@@ -49,7 +49,7 @@ def getMode():
           The program will output a log file.
 
     [2]:  Slow mode - The program will pause at each match found.
-          The program will still output a log file, but you must press [ENTER]
+          The program will still output a log file, but you must press [PAGE DOWN]
           for every match found to continue the program.
 
     Mode number: """),)
