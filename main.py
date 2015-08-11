@@ -194,7 +194,7 @@ def charAppender(store, n, filename, character):
 #
 # Takes the entered patterns and compares them to the extracted patterns
 #
-def findMatches(patterns, data, dirNum):
+def findMatches(patterns, data, dirNum, file):
   def findMatchInList(toFind, inThis):
     for n in range(len(toFind)):
       if toFind[n] != inThis[n]:
@@ -211,14 +211,16 @@ def findMatches(patterns, data, dirNum):
           	colFormat = MDcolumns
           else:
           	colFormat = Wcolumns
-          print """
+          logText = """
     Match found!
     File: %s/%s
     Source file: %s/%s/Data3
     Pattern found: %r
     Column #: %r
-          """ % (analysisLoc, key, dataFilesLoc, str(dirNum), patterns[pattern], 
-                (colFormat[n] + 1))
+            """ % (analysisLoc, key, dataFilesLoc, str(dirNum), patterns[pattern], 
+                  (colFormat[n] + 1))
+          f.write(logText)
+          print logText
           if mode == 2:
             while True:
               keyNum = ord(getch())
@@ -228,8 +230,14 @@ def findMatches(patterns, data, dirNum):
 getMode()
 patterns = getPatterns()
 numDirectories = getSubdirectories()
-for i in range(numDirectories):
-  copyFile(i + 1)
-  runReport3()
-  data = extractPatterns(patterns)
-  findMatches(patterns, data, (i+1) )
+newpath = r'./logs/'
+if not os.path.exists(newpath):
+  os.makedirs(newpath)
+logFilename = "./logs/log" + time.strftime("%m%d%y%H%M%S") + ".txt"
+with open(logFilename,"a+") as f:
+  for i in range(numDirectories):
+    copyFile(i + 1)
+    runReport3()
+    data = extractPatterns(patterns)
+    findMatches(patterns, data, (i+1), f )
+print "Done! :D"
