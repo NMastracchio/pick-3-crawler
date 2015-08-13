@@ -9,6 +9,7 @@ import os
 mode = 1 # 1=Fast, 2=Slow
 dataFilesLoc = "C:/DATA FILES"
 analysisLoc = "C:/ANALYSIS"
+dataFileName = "Data3"
 shortSleepTime = 0.1
 longSleepTime = 1.5
 # Rows 14-18
@@ -109,10 +110,11 @@ def getSubdirectories():
 # Copies Data3 from dataFilesLoc to "C:/ANALYSIS" for file creation
 #
 def copyFile(dirNum):
-  src = dataFilesLoc + "/" + str(dirNum) + "/Data3"
-  dest = analysisLoc + "/Data3"
-  print ("Copying %s/%s/Data3 to %s/Data3: " % (dataFilesLoc, str(dirNum), 
-                                              analysisLoc)),
+  src = dataFilesLoc + "/" + str(dirNum) + "/" + dataFileName
+  dest = analysisLoc + "/" + dataFileName
+  print ("Copying %s/%s/%s to %s/%s: " % (dataFilesLoc, str(dirNum), 
+                                          dataFileName, analysisLoc,
+                                          dataFileName)),
   try:
     shutil.copy(src, dest)
   except shutil.Error as e:
@@ -214,11 +216,11 @@ def findMatches(patterns, data, dirNum, file):
           logText = """
     Match found!
     File: %s/%s
-    Source file: %s/%s/Data3
+    Source file: %s/%s/%s
     Pattern found: %r
     Column #: %r
-            """ % (analysisLoc, key, dataFilesLoc, str(dirNum), patterns[pattern], 
-                  (colFormat[n] + 1))
+            """ % (analysisLoc, key, dataFilesLoc, dataFileName, str(dirNum), 
+                    patterns[pattern], (colFormat[n] + 1))
           f.write(logText)
           print logText
           if mode == 2:
